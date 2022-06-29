@@ -9,6 +9,8 @@ It has the basic support for new drivers, such as database, redis, etc, but hasn
 If it actually gets usage, we will work on better documentation, but this should work for now.  Look at Limiter for all 
 available methods.
 
+If you are not using composer, you must require vendor/autoload.php before instantion.
+
 ## Usage
 
 ```
