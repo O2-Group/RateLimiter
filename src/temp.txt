@@ -1,0 +1,50 @@
+
+	public function get($key)
+	{
+		return isset(self::$data[$key]) ? self::$data[$key] : null;
+	}
+
+	public function set($key, $value, $ttl)
+	{
+		echo __METHOD__;exit;
+
+		if (!isset($data[$key])) {
+			static::$data[$key] = $value;
+		}
+		$_SESSION[self::sessionKey()] = static::$data;
+
+		$item = $this->pool->getItem($key);
+		$item->set($value);
+		$item->expiresAfter($ttl);
+		return $item->save();
+	}
+
+	public function exists($key)
+	{
+		echo __METHOD__;exit;
+
+		$item = $this->pool->getItem($key);
+		$item->setInvalidationMethod(Invalidation::OLD);
+		return $item->isHit();
+	}
+
+	public function delete($key)
+	{
+		echo __METHOD__;exit;
+
+		return $this->pool->deleteItem($key);
+	}
+
+
+
+	/**
+	 * Return if we are currently rate limited.
+	 * @param int $max
+	 * @param string $key
+	 * @return bool
+	 */
+	public function isRateLimited($max = 5, $key = '-') : bool {
+		$value = $this->get($key);
+		$value = is_array($value) ? count($value) : 0;
+		return $max >= $value;
+	}

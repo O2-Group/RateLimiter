@@ -1,0 +1,18 @@
+{
+    "name": "o2group/rate-limit",
+    "description": "Rate limit plugin for WordPress developers.",
+    "type": "plugin",
+    "autoload": {
+        "psr-4": {
+            "O2Group\\RateLimit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Chase Miller",
+            "email": "chase@crumbls.com"
+        }
+    ],
+    "require": {
+    }
+}
